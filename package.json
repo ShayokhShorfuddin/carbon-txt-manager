@@ -1,0 +1,27 @@
+{
+  "name": "carbon-txt-manager",
+  "version": "1.0.0",
+  "description": "A minimalistic terminal-based file manager for carbon.txt files, offering syntax validation, URL/domain reachability testing, lightning-fast formatting, easy file viewing, and powerful management tools—all from the comfort of your cozy terminal.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "url": "https://github.com/ShayokhShorfuddin/carbon-txt-manager"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "green",
+    "carbon",
+    "carbon.txt",
+    "sustainability"
+  ],
+  "author": "Shayokh Shorfuddin Shuvro",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  }
+}
