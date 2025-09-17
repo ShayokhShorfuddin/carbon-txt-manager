@@ -1,33 +1,52 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk';
-import { Command } from 'commander';
-import hasCarbon from './has-carbon';
+import { Command } from "commander";
+import { greenCheck, greenText, redCross, redText } from "./chalk-config";
+import extension from "./extension";
+import generate from "./generate";
+import hasCarbon from "./has-carbon";
 
 const program = new Command();
 
-const greenText = chalk.rgb(154, 226, 46);
-const greenCheck = greenText('✔');
-const redCross = chalk.red('✘');
-
-
 program
-  .name('carbon-txt-manager')
-  .description('A minimalistic terminal-based file manager for carbon.txt files.')
-  .version('1.0.0');
+	.name("carbon-txt-manager")
+	.description(
+		"A minimalistic terminal-based file manager for carbon.txt files.",
+	)
+	.version("1.0.0");
 
 // has-carbon
-program.command('has-carbon')
-  .description('Check if carbon.txt exists in the current working directory')
-  .action(() => {
-    if (hasCarbon()) {
-      console.log(`${greenCheck} ${greenText('carbon.txt')} exists in current working directory.`);
-    } else {
-      console.log(`${redCross} ${chalk.red('carbon.txt not found!')}`);
-    }
-  });
+program
+	.command("has-carbon")
+	.description("Check if carbon.txt exists in the current working directory")
+	.action(() => {
+		if (hasCarbon()) {
+			console.log(
+				`${greenCheck} ${greenText("carbon.txt")} exists in current working directory.`,
+			);
+		} else {
+			console.log(`${redCross} ${redText("carbon.txt not found!")}`);
+		}
+	});
 
+// generate
+program
+	.command("generate")
+	.description(
+		"Generate a new carbon.txt file in the current working directory, overwriting if it already exists",
+	)
+	.alias("gen")
+	.action(async () => {
+		await generate();
+	});
 
+// extension
+program
+	.command("extension")
+	.description("Print information about the carbon-text extension")
+	.alias("ext")
+	.action(() => {
+		extension();
+	});
 
-  
 program.parse();
