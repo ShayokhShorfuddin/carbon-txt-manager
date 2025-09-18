@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import { greenCheck, greenText, redCross, redText } from "./chalk-config";
 import extension from "./extension";
+import format from "./format";
 import generate from "./generate";
 import hasCarbon from "./has-carbon";
 import pingUrl from "./ping-url";
@@ -23,6 +24,7 @@ program
 program
 	.command("has-carbon")
 	.description("Check if carbon.txt exists in the current working directory")
+	.alias("hc")
 	.action(() => {
 		if (hasCarbon()) {
 			console.log(
@@ -30,6 +32,7 @@ program
 			);
 		} else {
 			console.error(`${redCross} ${redText("carbon.txt not found.")}`);
+			process.exit(1);
 		}
 	});
 
@@ -97,6 +100,17 @@ program
 	.alias("pu")
 	.action(async () => {
 		await pingUrl();
+	});
+
+// format
+program
+	.command("format")
+	.description(
+		"Format an unformatted carbon.txt file. The file must be syntactically valid.",
+	)
+	.alias("f")
+	.action(async () => {
+		await format();
 	});
 
 program.parse();

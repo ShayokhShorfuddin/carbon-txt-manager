@@ -29,7 +29,7 @@ export default async function pingUrl() {
 			console.error(
 				`${redCross} URL: ${url}, status: ${redText("failed")}, reason: ${result.reason}`,
 			);
-			return;
+			process.exit(1);
 		}
 
 		// Successful fetch
@@ -41,7 +41,7 @@ export default async function pingUrl() {
 			console.error(
 				`${redCross} URL: ${url}, status: ${redText(statusCode)}, reachable: ${isReachable}`,
 			);
-			return;
+			process.exit(1);
 		}
 
 		// Within 200-299 range

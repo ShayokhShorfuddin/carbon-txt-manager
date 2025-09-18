@@ -219,7 +219,7 @@ async function askForServicesLoop(): Promise<
 	return services;
 }
 
-function template({
+export function template({
 	disclosures,
 	services,
 }: {
