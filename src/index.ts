@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
+import addDisclosures from "./add-disclosures";
 import addServices from "./add-services";
 import { greenCheck, greenText, redCross, redText } from "./chalk-config";
 import extension from "./extension";
@@ -112,6 +113,17 @@ program
 	.alias("f")
 	.action(async () => {
 		await format();
+	});
+
+// add-disclosures
+program
+	.command("add-disclosures")
+	.description(
+		"Add new disclosures to the disclosures array of an existing carbon.txt file.",
+	)
+	.alias("ad")
+	.action(async () => {
+		await addDisclosures();
 	});
 
 // add-services
