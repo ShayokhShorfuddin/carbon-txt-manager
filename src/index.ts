@@ -9,6 +9,7 @@ import format from "./format";
 import generate from "./generate";
 import hasCarbon from "./has-carbon";
 import pingUrl from "./ping-url";
+import removeDisclosure from "./remove-disclosure";
 import removeService from "./remove-service";
 import tree from "./tree";
 import isValid from "./validate";
@@ -136,6 +137,17 @@ program
 	.alias("as")
 	.action(async () => {
 		await addServices();
+	});
+
+// remove-disclosures
+program
+	.command("remove-disclosure")
+	.description(
+		"Remove an existing disclosure from the disclosures array of an existing carbon.txt file.",
+	)
+	.alias("rd")
+	.action(async () => {
+		await removeDisclosure();
 	});
 
 // remove-service

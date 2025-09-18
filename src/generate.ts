@@ -226,27 +226,33 @@ export function template({
 	disclosures: Array<{ doc_type: string; url: string; domain: string }>;
 	services: Array<{ domain: string; service_type: Array<string> }>;
 }) {
+	const formattedDisclosures =
+		disclosures.length > 0
+			? `\n${disclosures
+					.map(
+						(d) =>
+							`    { doc_type = "${d.doc_type}", url = "${d.url}", domain = "${d.domain}" }`,
+					)
+					.join(",\n")}\n`
+			: "";
+
+	const formattedServices =
+		services.length > 0
+			? `\n${services
+					.map(
+						(s) =>
+							`    { domain = "${s.domain}", service_type = [${s.service_type
+								.map((t) => `"${t}"`)
+								.join(", ")}] }`,
+					)
+					.join(",\n")}\n`
+			: "";
+
 	return `[org]
-disclosures = [
-${disclosures
-	.map(
-		(d) =>
-			`    { doc_type = "${d.doc_type}", url = "${d.url}", domain = "${d.domain}" }`,
-	)
-	.join(",\n")}	
-]
+disclosures = [${formattedDisclosures}]
 
 [upstream]
-services = [
-${services
-	.map(
-		(s) =>
-			`    { domain = "${s.domain}", service_type = [${s.service_type
-				.map((t) => `"${t}"`)
-				.join(", ")}] }`,
-	)
-	.join(",\n")}
-]`;
+services = [${formattedServices}]`;
 }
 
 function isValidDomain(url: string): boolean {
