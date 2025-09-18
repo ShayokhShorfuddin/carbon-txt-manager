@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { greenText, redCross, redText } from "./chalk-config";
 import { askForServicesLoop, template } from "./generate";
 import hasCarbon from "./has-carbon";
-import { loadContent } from "./validate";
+import isValid, { loadContent } from "./validate";
 
 export default async function addServices() {
 	// First we will check if the carbon.txt file exists in the current working directory
@@ -11,6 +11,8 @@ export default async function addServices() {
 		console.error(`${redCross} ${redText("carbon.txt not found.")}`);
 		process.exit(1);
 	}
+	// Validating the file content for safety
+	isValid();
 
 	// Get file content
 	const content = loadContent();

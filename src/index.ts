@@ -9,6 +9,7 @@ import format from "./format";
 import generate from "./generate";
 import hasCarbon from "./has-carbon";
 import pingUrl from "./ping-url";
+import removeService from "./remove-service";
 import tree from "./tree";
 import isValid from "./validate";
 import viewCarbonTxt from "./view";
@@ -135,6 +136,17 @@ program
 	.alias("as")
 	.action(async () => {
 		await addServices();
+	});
+
+// remove-service
+program
+	.command("remove-service")
+	.description(
+		"Remove an existing service from the services array of an existing carbon.txt file.",
+	)
+	.alias("rs")
+	.action(async () => {
+		await removeService();
 	});
 
 program.parse();
