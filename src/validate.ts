@@ -13,7 +13,7 @@ export type Content = {
 	};
 };
 
-export default function isValidate(): boolean {
+export default function isValid(): boolean {
 	// First we will check if the carbon.txt file exists in the current working directory
 	if (!hasCarbon()) {
 		console.error(`${redCross} ${redText("carbon.txt not found.")}`);

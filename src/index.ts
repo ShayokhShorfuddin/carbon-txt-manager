@@ -5,6 +5,7 @@ import { greenCheck, greenText, redCross, redText } from "./chalk-config";
 import extension from "./extension";
 import generate from "./generate";
 import hasCarbon from "./has-carbon";
+import pingUrl from "./ping-url";
 import tree from "./tree";
 import isValid from "./validate";
 import viewCarbonTxt from "./view";
@@ -85,6 +86,17 @@ program
 	.alias("t")
 	.action(() => {
 		tree();
+	});
+
+// ping-urls
+program
+	.command("ping-urls")
+	.description(
+		"Ping all URLs specified in the disclosures to determine their reachability",
+	)
+	.alias("pu")
+	.action(async () => {
+		await pingUrl();
 	});
 
 program.parse();
