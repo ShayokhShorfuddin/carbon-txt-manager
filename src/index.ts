@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
+import addServices from "./add-services";
 import { greenCheck, greenText, redCross, redText } from "./chalk-config";
 import extension from "./extension";
 import format from "./format";
@@ -111,6 +112,17 @@ program
 	.alias("f")
 	.action(async () => {
 		await format();
+	});
+
+// add-services
+program
+	.command("add-services")
+	.description(
+		"Add new services to the services array of an existing carbon.txt file.",
+	)
+	.alias("as")
+	.action(async () => {
+		await addServices();
 	});
 
 program.parse();

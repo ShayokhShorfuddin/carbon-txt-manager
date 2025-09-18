@@ -65,7 +65,7 @@ async function generateCarbonTxt({
 	console.log(`\n${greenText("carbon.txt")} file generated successfully.`);
 }
 
-async function askForDisclosureLoop(): Promise<
+export async function askForDisclosureLoop(): Promise<
 	Array<{ doc_type: string; url: string; domain: string }>
 > {
 	const addMore = true;
@@ -141,7 +141,7 @@ async function askForDisclosureLoop(): Promise<
 	return disclosures;
 }
 
-async function askForServicesLoop(): Promise<
+export async function askForServicesLoop(): Promise<
 	Array<{ domain: string; service_type: Array<string> }>
 > {
 	const addMore = true;
@@ -180,7 +180,7 @@ async function askForServicesLoop(): Promise<
 					"Enter the type(s) of service provided, separated by commas (e.g. 'shared-hosting, cdn, database ...'):",
 				validate: (input: string) => {
 					// Ensure that the input is not empty.
-					if (input.length < 0) {
+					if (input.trim().length < 1) {
 						return "Service type must not be empty. For multiple services, separate them with commas (e.g. 'shared-hosting, cdn, database ...')";
 					}
 
