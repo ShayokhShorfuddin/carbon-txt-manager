@@ -3,6 +3,7 @@
 
 .env
 .DS_Store
+carbon.txt
 npm-debug.log
 
 tsconfig.json
