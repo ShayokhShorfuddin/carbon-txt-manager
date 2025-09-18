@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { redCross, redText } from "./chalk-config";
 import hasCarbon from "./has-carbon";
 
-export default async function viewCarbonTxt() {
+export default function viewCarbonTxt() {
 	if (!hasCarbon()) {
 		console.error(
 			`${redCross} ${redText("carbon.txt not found in current working directory.")}`,

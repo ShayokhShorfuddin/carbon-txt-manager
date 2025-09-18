@@ -5,7 +5,8 @@ import { greenCheck, greenText, redCross, redText } from "./chalk-config";
 import extension from "./extension";
 import generate from "./generate";
 import hasCarbon from "./has-carbon";
-import validate from "./validate";
+import tree from "./tree";
+import isValid from "./validate";
 import viewCarbonTxt from "./view";
 
 const program = new Command();
@@ -49,8 +50,10 @@ program
 		"Validate the syntax and structure of the carbon.txt file in the current working directory",
 	)
 	.alias("val")
-	.action(async () => {
-		await validate();
+	.action(() => {
+		if (isValid()) {
+			console.log(`${greenCheck} ${greenText("carbon.txt is valid.")}`);
+		}
 	});
 
 // extension
@@ -71,6 +74,17 @@ program
 	.alias("v")
 	.action(() => {
 		viewCarbonTxt();
+	});
+
+// tree
+program
+	.command("tree")
+	.description(
+		"View the structure of carbon.txt file present in the current working directory",
+	)
+	.alias("t")
+	.action(() => {
+		tree();
 	});
 
 program.parse();

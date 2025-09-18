@@ -1,26 +1,26 @@
 import fs from "node:fs";
 import path from "node:path";
 import TOML from "@iarna/toml";
-import { greenCheck, greenText, redCross, redText } from "./chalk-config";
+import { redCross, redText } from "./chalk-config";
 import hasCarbon from "./has-carbon";
 
-type Content = {
+export type Content = {
 	org: {
 		disclosures: { doc_type: string; url: string; domain: string }[];
 	};
 	upstream: {
-		services: { domain: string; service_type: string }[];
+		services: { domain: string; service_type: Array<string> }[];
 	};
 };
 
-export default async function validate() {
+export default function isValidate(): boolean {
 	// First we will check if the carbon.txt file exists in the current working directory
 	if (!hasCarbon()) {
 		console.error(`${redCross} ${redText("carbon.txt not found.")}`);
 		process.exit(1);
 	}
 
-	const TOMLContent = await loadContent();
+	const TOMLContent = loadContent();
 
 	// Check if org table exists
 	if (!TOMLContent.org) {
@@ -84,10 +84,40 @@ export default async function validate() {
 		process.exit(1);
 	}
 
-	console.log(`${greenCheck} ${greenText("carbon.txt is valid.")}`);
+	// Basically, @iarna-toml doesn't properly validate the type of service_type. So we will do it manually. This is important for situations like this: { domain = "vercel.com", service_type = 1 }
+
+	// Iterate over all disclosures and check if doc_type, url, and domain are strings
+	const badDisclosures = TOMLContent.org.disclosures.filter(
+		(disclosure) =>
+			!isString(disclosure.doc_type) ||
+			!isString(disclosure.url) ||
+			!isString(disclosure.domain),
+	);
+
+	if (badDisclosures.length > 0) {
+		console.error(
+			`${redCross} ${redText(`doc_type, url, and domain must be string for the following entries:\n  ${badDisclosures.map((e) => JSON.stringify(e)).join(`\n`)}`)}`,
+		);
+		process.exit(1);
+	}
+
+	// Iterate over all services and check if domain is a string and service_type is an array of strings
+	const badServices = TOMLContent.upstream.services.filter(
+		(service) =>
+			!isString(service.domain) || !isStringArray(service.service_type),
+	);
+
+	if (badServices.length > 0) {
+		console.error(
+			`${redCross} ${redText(`domain must be a string and service_type must be an array of strings for the following entries:\n  ${badServices.map((e) => JSON.stringify(e)).join(`\n`)}`)}`,
+		);
+		process.exit(1);
+	}
+
+	return true;
 }
 
-async function loadContent(): Promise<Content> {
+export function loadContent(): Content {
 	try {
 		const content = fs.readFileSync(
 			path.join(process.cwd(), "carbon.txt"),
@@ -101,4 +131,13 @@ async function loadContent(): Promise<Content> {
 		);
 		process.exit(1);
 	}
+}
+
+///// Type guards /////
+function isStringArray(param: string[]): param is string[] {
+	return Array.isArray(param) && param.every((i) => typeof i === "string");
+}
+
+function isString(param: unknown): param is string {
+	return typeof param === "string";
 }
