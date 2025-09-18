@@ -6,6 +6,7 @@ import extension from "./extension";
 import generate from "./generate";
 import hasCarbon from "./has-carbon";
 import validate from "./validate";
+import viewCarbonTxt from "./view";
 
 const program = new Command();
 
@@ -59,6 +60,17 @@ program
 	.alias("ext")
 	.action(() => {
 		extension();
+	});
+
+// view
+program
+	.command("view")
+	.description(
+		"View the contents of the carbon.txt file in the current working directory",
+	)
+	.alias("v")
+	.action(() => {
+		viewCarbonTxt();
 	});
 
 program.parse();
