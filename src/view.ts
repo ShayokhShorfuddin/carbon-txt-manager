@@ -5,7 +5,7 @@ import hasCarbon from "./has-carbon";
 export default function viewCarbonTxt() {
 	if (!hasCarbon()) {
 		console.error(
-			`${redCross} ${redText("carbon.txt not found in current working directory.")}`,
+			`${redCross} ${redText("carbon.txt not found in the current working directory.")}`,
 		);
 		process.exit(1);
 	}

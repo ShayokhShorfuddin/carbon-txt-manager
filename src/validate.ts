@@ -134,7 +134,7 @@ export function loadContent(): Content {
 }
 
 ///// Type guards /////
-function isStringArray(param: string[]): param is string[] {
+function isStringArray(param: unknown): param is string[] {
 	return Array.isArray(param) && param.every((i) => typeof i === "string");
 }
 

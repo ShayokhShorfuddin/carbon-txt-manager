@@ -32,10 +32,12 @@ program
 	.action(() => {
 		if (hasCarbon()) {
 			console.log(
-				`${greenCheck} ${greenText("carbon.txt")} exists in current working directory.`,
+				`${greenCheck} ${greenText("carbon.txt")} exists in the current working directory.`,
 			);
 		} else {
-			console.error(`${redCross} ${redText("carbon.txt not found.")}`);
+			console.error(
+				`${redCross} ${redText("carbon.txt not found in the current working directory.")}`,
+			);
 			process.exit(1);
 		}
 	});
@@ -67,7 +69,9 @@ program
 // extension
 program
 	.command("extension")
-	.description("Print information about the carbon-text extension")
+	.description(
+		"View the structure of the carbon.txt file in the current working directory",
+	)
 	.alias("ext")
 	.action(() => {
 		extension();

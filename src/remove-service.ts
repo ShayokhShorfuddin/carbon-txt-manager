@@ -58,5 +58,5 @@ export default async function removeService() {
 		"utf8",
 	);
 
-	console.log(`${greenText("service removed successfully.")}`);
+	console.log(`${greenText("Service removed successfully.")}`);
 }
