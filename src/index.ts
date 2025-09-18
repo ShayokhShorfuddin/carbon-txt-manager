@@ -5,6 +5,7 @@ import { greenCheck, greenText, redCross, redText } from "./chalk-config";
 import extension from "./extension";
 import generate from "./generate";
 import hasCarbon from "./has-carbon";
+import validate from "./validate";
 
 const program = new Command();
 
@@ -25,7 +26,7 @@ program
 				`${greenCheck} ${greenText("carbon.txt")} exists in current working directory.`,
 			);
 		} else {
-			console.log(`${redCross} ${redText("carbon.txt not found!")}`);
+			console.error(`${redCross} ${redText("carbon.txt not found.")}`);
 		}
 	});
 
@@ -38,6 +39,17 @@ program
 	.alias("gen")
 	.action(async () => {
 		await generate();
+	});
+
+// validate
+program
+	.command("validate")
+	.description(
+		"Validate the syntax and structure of the carbon.txt file in the current working directory",
+	)
+	.alias("val")
+	.action(async () => {
+		await validate();
 	});
 
 // extension

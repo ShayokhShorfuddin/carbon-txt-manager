@@ -151,7 +151,7 @@ async function askForServicesLoop(): Promise<
 	}> = [];
 
 	while (addMore) {
-		const {
+		let {
 			domain,
 			service_type,
 			addMore,
@@ -179,9 +179,12 @@ async function askForServicesLoop(): Promise<
 				message:
 					"Enter the type(s) of service provided, separated by commas (e.g. 'shared-hosting, cdn, database ...'):",
 				validate: (input: string) => {
-					return input.length > 0
-						? true
-						: "Service type must not be empty. For multiple services, separate them with commas (e.g. 'shared-hosting, cdn, database ...')";
+					// Ensure that the input is not empty.
+					if (input.length < 0) {
+						return "Service type must not be empty. For multiple services, separate them with commas (e.g. 'shared-hosting, cdn, database ...')";
+					}
+
+					return true;
 				},
 			},
 
@@ -192,6 +195,14 @@ async function askForServicesLoop(): Promise<
 				choices: ["Yes", "No"],
 			},
 		]);
+
+		// If user accidentally wrapped service types in quotes, we will remove them.
+		if (
+			(service_type.startsWith("'") || service_type.startsWith('"')) &&
+			(service_type.endsWith("'") || service_type.endsWith('"'))
+		) {
+			service_type = service_type.slice(1, -1);
+		}
 
 		// Add the new service to the services array.
 		services.push({
