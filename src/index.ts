@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { readFileSync } from "node:fs";
 import { Command } from "commander";
 import addDisclosures from "./add-disclosures";
 import addServices from "./add-services";
@@ -17,12 +18,14 @@ import viewCarbonTxt from "./view";
 
 const program = new Command();
 
+const packageJson = JSON.parse(readFileSync("./package.json", "utf-8"));
+
 program
 	.name("carbon-txt-manager")
 	.description(
 		"A minimalistic terminal-based file manager for carbon.txt files.",
 	)
-	.version("1.0.0");
+	.version(packageJson.version);
 
 // has-carbon
 program
@@ -69,9 +72,7 @@ program
 // extension
 program
 	.command("extension")
-	.description(
-		"View the structure of the carbon.txt file in the current working directory",
-	)
+	.description("Display information regarding carbon-text vscode extension")
 	.alias("ext")
 	.action(() => {
 		extension();

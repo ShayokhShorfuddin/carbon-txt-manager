@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import inquirer from "inquirer";
-import { greenText } from "./chalk-config";
+import { greenText, redCross, redText } from "./chalk-config";
 
 export default async function generate() {
 	let disclosures: Array<{ doc_type: string; url: string; domain: string }> =
@@ -45,8 +45,8 @@ export default async function generate() {
 
 		// Now that we have collected all disclosures and services, we can proceed with generating the carbon.txt file.
 		await generateCarbonTxt({ disclosures, services });
-	} catch (error) {
-		console.error("Error generating carbon.txt: ", error);
+	} catch {
+		console.error(`\n${redCross} ${redText("An unexpected error occurred. Please try again.")}`);
 		process.exit(1);
 	}
 }
