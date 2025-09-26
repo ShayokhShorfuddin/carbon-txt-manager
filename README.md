@@ -5,9 +5,9 @@ A minimalistic terminal-based file manager for carbon.txt files, offering syntax
 For information on carbon.txt, please refer to [carbontxt.org](https://carbontxt.org/). The color scheme is based on the one shown in [carbon.txt syntax](https://carbontxt.org/syntax).
 
 ### 🌱 Installation
-Get started by installing the package through the following command:
+Get started by installing the package as a `devDependency` through the following command:
 ```
-npm install carbon-txt-manager
+npm install carbon-txt-manager --save-dev
 ```
 
 If you just want to try it out without installing locally, use the following command:
