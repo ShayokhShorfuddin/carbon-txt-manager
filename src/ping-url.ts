@@ -34,27 +34,20 @@ export default async function pingUrl() {
 
 		// Could not fetch the URL
 		if (result.status === "rejected") {
-			console.error(
-				`${redCross} URL: ${url}, status: ${redText("failed")}, reason: ${result.reason}`,
-			);
+			console.error(`${redCross} URL: ${url}, status: ${redText("failed")}`);
 			process.exit(1);
 		}
 
 		// Successful fetch
 		const statusCode = result.value.status;
-		const isReachable = result.value.ok;
 
 		// Not within 200-299 range
 		if (!result.value.ok) {
-			console.error(
-				`${redCross} URL: ${url}, status: ${redText(statusCode)}, reachable: ${isReachable}`,
-			);
+			console.error(`${redCross} URL: ${url}, status: ${redText(statusCode)}`);
 			process.exit(1);
 		}
 
 		// Within 200-299 range
-		console.log(
-			`${greenCheck} URL: ${url}, status: ${greenText(statusCode)}, reachable: ${isReachable}`,
-		);
+		console.log(`${greenCheck} URL: ${url}, status: ${greenText(statusCode)}`);
 	});
 }
