@@ -15,6 +15,14 @@ export default async function pingUrl() {
 	// Get file content
 	const content = loadContent();
 	const disclosureUrls = content.org.disclosures.map((d) => d.url);
+
+	// If there are no URLs to ping, exit early
+	if (disclosureUrls.length === 0) {
+		console.log(`${redCross} No URLs found in disclosures to ping.`);
+		return;
+	}
+
+	// Ping each URL with a HEAD request
 	const promises = disclosureUrls.map((url) => fetch(url, { method: "HEAD" }));
 
 	console.log("Pinging URLs...");

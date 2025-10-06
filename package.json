@@ -1,6 +1,6 @@
 {
   "name": "carbon-txt-manager",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "description": "A minimalistic terminal-based file manager for carbon.txt files, offering syntax validation, URL/domain reachability testing, lightning-fast formatting, easy file viewing, and powerful management tools—all from the comfort of your cozy terminal.",
   "main": "./dist/index.js",
@@ -11,7 +11,8 @@
     "url": "https://github.com/ShayokhShorfuddin/carbon-txt-manager"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "ctm": "carbon-txt-manager"
   },
   "keywords": [
     "cli",
@@ -26,6 +27,7 @@
     "@biomejs/biome": "2.2.4",
     "@types/iarna__toml": "^2.0.5",
     "@types/node": "^24.5.2",
+    "carbon-txt-manager": "^1.0.4",
     "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   },
